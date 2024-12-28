@@ -77,8 +77,11 @@ const createGallery = (image) => {
   </a>
 </li>`;
 };
+// console.log(createGallery);
 
 const createGalleryArray = images.map((el) => createGallery(el)).join("");
+
+// console.log(createGalleryArray);
 
 const imagesListEl = document.querySelector(".gallery");
 
@@ -87,9 +90,17 @@ console.log(imagesListEl);
 imagesListEl.innerHTML = createGalleryArray;
 
 imagesListEl.addEventListener("click", (event) => {
+  event.preventDefault();
   if (event.target === event.currentTarget) {
     return;
   }
+  // console.log(event.target);
 
-  const imagesEl = event.target.closest(".gallery-item");
+  const largeImageSrc = event.target.getAttribute("data-source");
+
+  const modal = basicLightbox.create(`
+      <img src="${largeImageSrc}">
+    `);
+
+  modal.show();
 });
